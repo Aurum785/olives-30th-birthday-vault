@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Olive's 30th Birthday • Photo Vault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            champagne: '#F8F4EE',
+            sand: '#EDE4D8',
+            gold: '#D4AF37',
+            deepGold: '#AA820A',
+            oliveDark: '#2C3529',
+            oliveMuted: '#556551',
+            roseAccent: '#E8B4B8'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F8F4EE;
+      color: #2C3529;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    .gold-gradient-btn {
+      background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+      transition: all 0.2s ease;
+    }
+    .gold-gradient-btn:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between font-sans selection:bg-gold selection:text-white">
+
+  <!-- Header / Hero -->
+  <header class="pt-8 pb-4 px-4 text-center">
+    <div class="inline-block px-3 py-1 mb-2 rounded-full text-xs font-semibold tracking-widest uppercase bg-sand text-deepGold border border-gold/30">
+      Celebrating 30 Years
+    </div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-oliveDark mt-1">
+      Olive's 30th Birthday
+    </h1>
+    <p class="font-serif italic text-lg sm:text-xl text-oliveMuted mt-1">
+      Memory & Photo Vault
+    </p>
+    <p class="text-xs sm:text-sm text-gray-500 max-w-xs mx-auto mt-2">
+      Snap your favorite moments today and drop them here for Olive to cherish forever!
+    </p>
+  </header>
+
+  <!-- Main Upload Container -->
+  <main class="flex-grow flex items-center justify-center px-4 py-4">
+    <div class="w-full max-w-lg glass-card rounded-3xl p-6 sm:p-8 shadow-xl shadow-gold/5 relative overflow-hidden">
+      
+      <!-- Vault Full Banner (Hidden by default) -->
+      <div id="vaultFullBanner" class="hidden mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-center">
+        <span class="text-2xl">✨</span>
+        <h3 class="font-serif text-xl font-bold text-amber-900 mt-1">The Memory Vault is Full!</h3>
+        <p class="text-xs text-amber-700 mt-1">
+          Thank you so much! Olive's 5 GB photo vault has reached capacity. All slots are filled, but she is so grateful for your love and presence!
+        </p>
+      </div>
+
+      <!-- Upload Form -->
+      <form id="uploadForm" class="space-y-5">
+        
+        <!-- Dropzone / Picker -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-oliveMuted mb-2">
+            Select Your Pictures <span class="text-deepGold font-normal">(Photos only, no videos)</span>
+          </label>
+          <div 
+            id="dropzone"
+            class="border-2 border-dashed border-gold/40 hover:border-gold rounded-2xl p-6 text-center cursor-pointer transition-colors bg-white/50 hover:bg-white"
+          >
+            <input 
+              type="file" 
+              id="fileInput" 
+              name="photos" 
+              accept="image/png, image/jpeg, image/jpg, image/webp, image/heic"
+              multiple 
+              class="hidden"
+            >
+            <div class="flex flex-col items-center justify-center gap-2">
+              <div class="w-12 h-12 rounded-full bg-sand/60 flex items-center justify-center text-deepGold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-oliveDark">Tap to choose photos from your camera roll</p>
+                <p class="text-xs text-gray-400 mt-0.5">Supports high-res JPG, PNG, HEIC, WebP</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thumbnails Preview Grid -->
+        <div id="previewContainer" class="hidden">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-oliveMuted uppercase tracking-wider" id="selectedCount">0 Photos Selected</span>
+            <button type="button" id="clearBtn" class="text-xs text-rose-500 hover:underline">Clear all</button>
+          </div>
+          <div id="previewGrid" class="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto p-1 bg-white/40 rounded-xl border border-sand">
+            <!-- Dynamic thumbnails injected here -->
+          </div>
+        </div>
+
+        <!-- Guest Name Input -->
+        <div>
+          <label for="guestName" class="block text-xs font-bold uppercase tracking-wider text-oliveMuted mb-1">
+            Your Name <span class="text-gray-400 font-normal">(Optional)</span>
+          </label>
+          <input 
+            type="text" 
+            id="guestName" 
+            name="name" 
+            placeholder="e.g., Uncle James, Sarah & Dan" 
+            maxlength="50"
+            class="w-full px-4 py-3 rounded-xl border border-sand focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none text-sm bg-white"
+          >
+        </div>
+
+        <!-- Birthday Wish Input (Strictly Max 70 Characters) -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="guestWish" class="block text-xs font-bold uppercase tracking-wider text-oliveMuted">
+              Birthday Wish for Olive
+            </label>
+            <span id="charCount" class="text-[11px] font-semibold text-deepGold">0 / 70</span>
+          </div>
+          <input 
+            type="text" 
+            id="guestWish" 
+            name="wish" 
+            maxlength="70"
+            placeholder="Happy 30th Olive! Here's to your next chapter! 🥂" 
+            class="w-full px-4 py-3 rounded-xl border border-sand focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none text-sm bg-white"
+          >
+          <p class="text-[11px] text-gray-400 mt-1">Short and sweet (maximum 70 characters)</p>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          id="submitBtn" 
+          disabled
+          class="w-full py-4 rounded-xl text-white font-semibold text-sm shadow-md gold-gradient-btn disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        >
+          <span>Send Photos to Olive</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+
+        <!-- Upload Progress Indicator -->
+        <div id="progressContainer" class="hidden space-y-2">
+          <div class="flex justify-between text-xs text-oliveMuted font-medium">
+            <span id="progressText">Uploading high-res photos...</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="w-full h-2 bg-sand rounded-full overflow-hidden">
+            <div id="progressBar" class="h-full bg-gold transition-all duration-300 w-0"></div>
+          </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center animate-fade-in">
+          <div class="w-10 h-10 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h4 class="font-serif text-lg font-bold text-emerald-900">Photos Uploaded!</h4>
+          <p class="text-xs text-emerald-700 mt-1" id="successDetail">
+            Thank you! Olive and her family will cherish these memories.
+          </p>
+          <button type="button" id="uploadMoreBtn" class="mt-3 text-xs font-semibold text-deepGold hover:underline">
+            + Upload more photos
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer with capacity indicator & private link -->
+  <footer class="py-4 text-center text-xs text-gray-500">
+    <div class="flex items-center justify-center gap-2 mb-1">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+      <span id="vaultStatusText">Olive's Memory Vault Active (~5 GB Cap)</span>
+    </div>
+    <div class="mt-1">
+      <a href="/gallery.html" class="text-deepGold/80 hover:text-deepGold underline">Family Portal</a>
+      <span class="mx-2">•</span>
+      <a href="/qr-generator.html" class="text-deepGold/80 hover:text-deepGold underline">Invitation QR</a>
+    </div>
+  </footer>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const dropzone = document.getElementById('dropzone');
+    const previewContainer = document.getElementById('previewContainer');
+    const previewGrid = document.getElementById('previewGrid');
+    const selectedCount = document.getElementById('selectedCount');
+    const clearBtn = document.getElementById('clearBtn');
+    const guestWish = document.getElementById('guestWish');
+    const charCount = document.getElementById('charCount');
+    const submitBtn = document.getElementById('submitBtn');
+    const uploadForm = document.getElementById('uploadForm');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const progressPercent = document.getElementById('progressPercent');
+    const successMessage = document.getElementById('successMessage');
+    const successDetail = document.getElementById('successDetail');
+    const uploadMoreBtn = document.getElementById('uploadMoreBtn');
+    const vaultFullBanner = document.getElementById('vaultFullBanner');
+    const vaultStatusText = document.getElementById('vaultStatusText');
+
+    let selectedFiles = [];
+
+    // Check Vault storage stats on load
+    async function checkVaultStats() {
+      try {
+        const res = await fetch('/api/stats');
+        const data = await res.json();
+        vaultStatusText.textContent = `Vault: ${data.usedMB} MB used of ${data.maxMB} MB (${data.percentUsed}%)`;
+        if (data.isFull) {
+          vaultFullBanner.classList.remove('hidden');
+          submitBtn.disabled = true;
+          fileInput.disabled = true;
+          dropzone.classList.add('opacity-50', 'pointer-events-none');
+        }
+      } catch (err) {
+        console.warn('Could not fetch vault stats:', err);
+      }
+    }
+    checkVaultStats();
+
+    // 70 Character Counter for Birthday Wish
+    guestWish.addEventListener('input', () => {
+      const len = guestWish.value.length;
+      charCount.textContent = `${len} / 70`;
+      if (len >= 65) {
+        charCount.classList.add('text-rose-500');
+      } else {
+        charCount.classList.remove('text-rose-500');
+      }
+    });
+
+    // Dropzone click trigger
+    dropzone.addEventListener('click', () => fileInput.click());
+
+    // File change handler with STRICT photo validation
+    fileInput.addEventListener('change', (e) => {
+      handleFiles(Array.from(e.target.files));
+    });
+
+    // Drag and drop handlers
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('border-gold', 'bg-white');
+    });
+
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('border-gold', 'bg-white');
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('border-gold', 'bg-white');
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        handleFiles(Array.from(e.dataTransfer.files));
+      }
+    });
+
+    function handleFiles(files) {
+      const allowedImageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif'];
+      const nonPhotos = [];
+      const validPhotos = [];
+
+      files.forEach(f => {
+        const name = f.name.toLowerCase();
+        const isPhotoExt = allowedImageExtensions.some(ext => name.endsWith(ext));
+        const isPhotoMime = f.type.startsWith('image/');
+
+        if (isPhotoExt || isPhotoMime) {
+          validPhotos.push(f);
+        } else {
+          nonPhotos.push(f.name);
+        }
+      });
+
+      if (nonPhotos.length > 0) {
+        alert(`Strict Photos Only: ${nonPhotos.length} file(s) were excluded because they are videos or non-photos.`);
+      }
+
+      selectedFiles = [...selectedFiles, ...validPhotos];
+      updatePreviews();
+    }
+
+    function updatePreviews() {
+      previewGrid.innerHTML = '';
+      if (selectedFiles.length === 0) {
+        previewContainer.classList.add('hidden');
+        submitBtn.disabled = true;
+        return;
+      }
+
+      previewContainer.classList.remove('hidden');
+      selectedCount.textContent = `${selectedFiles.length} Photo${selectedFiles.length > 1 ? 's' : ''} Selected`;
+      submitBtn.disabled = false;
+
+      selectedFiles.forEach((file, index) => {
+        const item = document.createElement('div');
+        item.className = 'relative aspect-square rounded-lg overflow-hidden bg-gray-100 border border-sand group';
+        
+        const img = document.createElement('img');
+        img.className = 'w-full h-full object-cover';
+        img.src = URL.createObjectURL(file);
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'absolute top-1 right-1 bg-black/60 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 hover:opacity-100';
+        removeBtn.innerHTML = '×';
+        removeBtn.onclick = (e) => {
+          e.stopPropagation();
+          selectedFiles.splice(index, 1);
+          updatePreviews();
+        };
+
+        item.appendChild(img);
+        item.appendChild(removeBtn);
+        previewGrid.appendChild(item);
+      });
+    }
+
+    clearBtn.addEventListener('click', () => {
+      selectedFiles = [];
+      fileInput.value = '';
+      updatePreviews();
+    });
+
+    // Form submission
+    uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (selectedFiles.length === 0) return;
+
+      submitBtn.disabled = true;
+      progressContainer.classList.remove('hidden');
+      progressBar.style.width = '10%';
+      progressPercent.textContent = '10%';
+
+      const formData = new FormData();
+      selectedFiles.forEach(f => formData.append('photos', f));
+      formData.append('name', document.getElementById('guestName').value);
+      formData.append('wish', document.getElementById('guestWish').value);
+
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/upload', true);
+
+        xhr.upload.onprogress = (evt) => {
+          if (evt.lengthComputable) {
+            const percent = Math.round((evt.loaded / evt.total) * 95);
+            progressBar.style.width = percent + '%';
+            progressPercent.textContent = percent + '%';
+          }
+        };
+
+        xhr.onload = () => {
+          progressContainer.classList.add('hidden');
+          if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            successMessage.classList.remove('hidden');
+            successDetail.textContent = `Successfully added ${data.photos.length} photo(s) to Olive's memory vault!`;
+            uploadForm.reset();
+            selectedFiles = [];
+            charCount.textContent = '0 / 70';
+            updatePreviews();
+            checkVaultStats();
+          } else {
+            const err = JSON.parse(xhr.responseText || '{}');
+            alert(err.error || 'Failed to upload photos. Please try again.');
+            submitBtn.disabled = false;
+          }
+        };
+
+        xhr.onerror = () => {
+          progressContainer.classList.add('hidden');
+          alert('Network error while uploading. Please check your connection.');
+          submitBtn.disabled = false;
+        };
+
+        xhr.send(formData);
+      } catch (err) {
+        progressContainer.classList.add('hidden');
+        alert('An unexpected error occurred: ' + err.message);
+        submitBtn.disabled = false;
+      }
+    });
+
+    uploadMoreBtn.addEventListener('click', () => {
+      successMessage.classList.add('hidden');
+      submitBtn.disabled = true;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "olives-30th-birthday-vault",
+  "version": "1.0.0",
+  "description": "Private photo-sharing memory vault for Olive's 30th Birthday with AWS S3 storage",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "birthday",
+    "photo-vault",
+    "aws-s3",
+    "memories"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.750.0",
+    "archiver": "^7.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "qrcode": "^1.5.4"
+  }
+}

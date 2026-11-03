@@ -1,0 +1,12 @@
+# Environment variables and secrets
+.env
+*.csv
+*accessKeys*
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+
+# Uploads directory (local files)
+uploads/
+!uploads/.gitkeep
