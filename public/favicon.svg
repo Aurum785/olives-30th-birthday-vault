@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B1666"/>
+      <stop offset="100%" stop-color="#120524"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF2B2"/>
+      <stop offset="50%" stop-color="#E5BA4D"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Rounded Shield -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#purpleGrad)" stroke="url(#goldGrad)" stroke-width="2.5"/>
+  
+  <!-- Camera Body in Gold -->
+  <rect x="14" y="22" width="36" height="26" rx="6" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+  
+  <!-- Camera Top Flash Notch -->
+  <path d="M24 22 L27 16 L37 16 L40 22 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linejoin="round"/>
+  
+  <!-- Camera Lens Outer & Inner -->
+  <circle cx="32" cy="35" r="8" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+  <circle cx="32" cy="35" r="3.5" fill="url(#goldGrad)"/>
+  
+  <!-- Little Golden Sparkle on Top Right -->
+  <path d="M49 11 L50 14 L53 15 L50 16 L49 19 L48 16 L45 15 L48 14 Z" fill="url(#goldGrad)"/>
+</svg>

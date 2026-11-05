@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olive's 30th Birthday • Official Invitation Flyer</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @media print {
+      body {
+        background: transparent !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      #flyerCard {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 5in !important;
+        page-break-inside: avoid;
+      }
+    }
+
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+
+    .gold-text-gradient {
+      background: linear-gradient(135deg, #FFF2B2 0%, #E5BA4D 50%, #B8860B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gold-double-border {
+      border: 2px solid #E5BA4D;
+      outline: 1px solid rgba(229, 186, 77, 0.4);
+      outline-offset: -6px;
+    }
+
+    .purple-radial-bg {
+      background: radial-gradient(circle at 50% 30%, #3B1666 0%, #200B3B 55%, #120524 100%);
+    }
+
+    .gold-foil-bar {
+      background: linear-gradient(90deg, transparent 0%, #E5BA4D 50%, transparent 100%);
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen py-8 px-4 font-montserrat flex flex-col items-center justify-start">
+
+  <!-- Top Control Bar (Hidden when printing) -->
+  <header class="no-print max-w-4xl w-full mb-8 text-center">
+    <div class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase bg-purple-900/60 text-amber-300 border border-amber-400/30 mb-2">
+      Invitation Studio
+    </div>
+    <h1 class="font-cinzel text-2xl sm:text-3xl font-bold text-amber-100">
+      Olive's 30th Birthday Flyer Designer
+    </h1>
+    <p class="text-xs sm:text-sm text-purple-200 mt-1 max-w-lg mx-auto">
+      Customize Olive's details below in real-time, then download your high-resolution flyer with her live scannable QR code embedded!
+    </p>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-wrap items-center justify-center gap-3 mt-4">
+      <button 
+        type="button" 
+        id="downloadImageBtn"
+        class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-purple-950 font-bold text-xs sm:text-sm tracking-wide shadow-lg hover:brightness-110 active:scale-95 transition-all flex items-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        <span>Download High-Res Flyer (PNG)</span>
+      </button>
+
+      <button 
+        type="button" 
+        onclick="window.print()"
+        class="px-5 py-3 rounded-xl bg-purple-950 border border-amber-400/40 text-amber-300 font-semibold text-xs sm:text-sm hover:bg-purple-900 active:scale-95 transition-all flex items-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+        </svg>
+        <span>Print Card / Save as PDF</span>
+      </button>
+
+      <a 
+        href="/" 
+        class="px-4 py-3 text-xs text-purple-300 hover:text-amber-300 underline"
+      >
+        ← Back to Photo Vault
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container: Editor Panel + Live Preview Card -->
+  <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- LEFT: Live Customization Panel (Hidden in print) -->
+    <div class="no-print lg:col-span-5 bg-purple-950/70 backdrop-blur-md rounded-3xl p-6 border border-amber-400/20 shadow-xl space-y-4">
+      <h2 class="font-cinzel text-lg font-bold text-amber-300 border-b border-purple-800 pb-2">
+        Flyer Details Editor
+      </h2>
+
+      <!-- Date Input -->
+      <div>
+        <label class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">Date</label>
+        <input 
+          type="text" 
+          id="inputDate" 
+          value="Saturday, November 28, 2026" 
+          class="w-full px-3 py-2.5 rounded-xl bg-purple-900/60 border border-purple-700/60 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
+        >
+      </div>
+
+      <!-- Time Input -->
+      <div>
+        <label class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">Time</label>
+        <input 
+          type="text" 
+          id="inputTime" 
+          value="6:00 PM Prompt" 
+          class="w-full px-3 py-2.5 rounded-xl bg-purple-900/60 border border-purple-700/60 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
+        >
+      </div>
+
+      <!-- Location / Hotel Input -->
+      <div>
+        <label class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">Location / Hotel Venue</label>
+        <input 
+          type="text" 
+          id="inputLocation" 
+          value="Grand Royale Hotel & Suites" 
+          class="w-full px-3 py-2.5 rounded-xl bg-purple-900/60 border border-purple-700/60 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
+        >
+      </div>
+
+      <!-- Sub-Location / Hall Input -->
+      <div>
+        <label class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">Hall / Address</label>
+        <input 
+          type="text" 
+          id="inputAddress" 
+          value="The Crystal Ballroom • Victoria Island, Lagos" 
+          class="w-full px-3 py-2.5 rounded-xl bg-purple-900/60 border border-purple-700/60 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
+        >
+      </div>
+
+      <!-- Dress Code -->
+      <div>
+        <label class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">Dress Code</label>
+        <input 
+          type="text" 
+          id="inputDressCode" 
+          value="Royal Purple & Touch of Gold • Glamorous Evening" 
+          class="w-full px-3 py-2.5 rounded-xl bg-purple-900/60 border border-purple-700/60 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
+        >
+      </div>
+
+      <!-- RSVP Contact -->
+      <div>
+        <label class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">RSVP Notice</label>
+        <input 
+          type="text" 
+          id="inputRsvp" 
+          value="Strictly by Invitation • RSVP: 0801-234-5678" 
+          class="w-full px-3 py-2.5 rounded-xl bg-purple-900/60 border border-purple-700/60 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
+        >
+      </div>
+
+      <!-- Optional Photo of Olive -->
+      <div>
+        <label class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">
+          Olive's Photo <span class="text-amber-300 font-normal">(Optional Portrait)</span>
+        </label>
+        <input 
+          type="file" 
+          id="photoInput" 
+          accept="image/*"
+          class="w-full text-xs text-purple-300 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-400 file:text-purple-950 hover:file:bg-amber-300 cursor-pointer"
+        >
+        <div id="photoControls" class="hidden mt-2 flex items-center justify-between">
+          <span class="text-[11px] text-green-400">Photo added to flyer!</span>
+          <button type="button" id="removePhotoBtn" class="text-[11px] text-rose-400 hover:underline">Remove photo</button>
+        </div>
+      </div>
+
+      <!-- QR Code Link (pre-filled with Render live link) -->
+      <div>
+        <label class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">QR Code Target URL</label>
+        <input 
+          type="text" 
+          id="qrUrlInput" 
+          value="https://olives-30th-birthday-vault.onrender.com" 
+          class="w-full px-3 py-2.5 rounded-xl bg-purple-900/60 border border-purple-700/60 focus:border-amber-400 focus:outline-none text-xs text-amber-200"
+        >
+        <p class="text-[11px] text-purple-400 mt-1">This is your live link. Guests who scan will instantly open Olive's uploader.</p>
+      </div>
+    </div>
+
+    <!-- RIGHT: THE FLYER PREVIEW CARD (This gets exported/printed) -->
+    <div class="lg:col-span-7 flex justify-center">
+      
+      <div 
+        id="flyerCard" 
+        class="w-full max-w-[480px] purple-radial-bg gold-double-border rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden text-center select-none"
+      >
+        
+        <!-- Luxury Corner Accents -->
+        <div class="absolute top-3 left-3 text-amber-400/60 text-lg">✦</div>
+        <div class="absolute top-3 right-3 text-amber-400/60 text-lg">✦</div>
+        <div class="absolute bottom-3 left-3 text-amber-400/60 text-lg">✦</div>
+        <div class="absolute bottom-3 right-3 text-amber-400/60 text-lg">✦</div>
+
+        <!-- Top Monogram / Header -->
+        <div class="mb-4">
+          <div class="inline-block px-4 py-1 rounded-full text-[11px] font-cinzel font-semibold tracking-[0.25em] text-amber-300 border border-amber-400/40 bg-purple-950/60 uppercase">
+            Exclusive Invitation
+          </div>
+          <p class="font-cormorant italic text-lg sm:text-xl text-purple-200 mt-3">
+            Together with her family, you are cordially invited to celebrate
+          </p>
+        </div>
+
+        <!-- Celebrant Name & Milestone -->
+        <div class="my-4">
+          <h2 class="font-cormorant italic text-2xl sm:text-3xl text-amber-200">
+            The 30th Birthday Celebration of
+          </h2>
+          <h1 class="font-cinzel text-4xl sm:text-5xl font-extrabold tracking-wider gold-text-gradient uppercase mt-1">
+            OLIVE
+          </h1>
+          <div class="w-32 h-[1.5px] gold-foil-bar mx-auto my-3"></div>
+          <p class="font-cinzel tracking-[0.2em] text-xs text-amber-300/90 uppercase font-semibold">
+            Chapter Thirty • Grace & Royalty
+          </p>
+        </div>
+
+        <!-- Optional Celebrant Portrait Slot -->
+        <div id="portraitWrapper" class="hidden my-4 flex justify-center">
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 border-2 border-amber-400/80 shadow-lg shadow-purple-950 bg-purple-900/40 overflow-hidden">
+            <img id="celebrantImg" src="" alt="Olive" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+
+        <!-- Event Details (Date, Time, Venue) -->
+        <div class="my-5 py-4 px-3 rounded-2xl bg-purple-950/50 border border-amber-400/20 backdrop-blur-sm space-y-2.5">
+          <div>
+            <span class="block text-[10px] uppercase tracking-widest text-amber-400 font-semibold font-cinzel">Date & Time</span>
+            <p id="dispDate" class="font-cormorant text-xl text-amber-100 font-semibold mt-0.5">
+              Saturday, November 28, 2026
+            </p>
+            <p id="dispTime" class="text-xs text-purple-200 font-medium">
+              6:00 PM Prompt
+            </p>
+          </div>
+
+          <div class="w-16 h-[1px] bg-amber-400/30 mx-auto"></div>
+
+          <div>
+            <span class="block text-[10px] uppercase tracking-widest text-amber-400 font-semibold font-cinzel">Venue</span>
+            <p id="dispLocation" class="font-cinzel text-sm sm:text-base text-amber-100 font-bold mt-0.5">
+              Grand Royale Hotel & Suites
+            </p>
+            <p id="dispAddress" class="text-xs text-purple-200 mt-0.5">
+              The Crystal Ballroom • Victoria Island, Lagos
+            </p>
+          </div>
+
+          <div class="w-16 h-[1px] bg-amber-400/30 mx-auto"></div>
+
+          <div>
+            <span class="block text-[10px] uppercase tracking-widest text-amber-400 font-semibold font-cinzel">Dress Code</span>
+            <p id="dispDressCode" class="font-cormorant italic text-sm text-purple-200">
+              Royal Purple & Touch of Gold • Glamorous Evening
+            </p>
+          </div>
+        </div>
+
+        <!-- THE SCANNABLE MEMORY VAULT QR CODE SECTION -->
+        <div class="mt-6 pt-4 border-t border-amber-400/20">
+          <div class="p-3 bg-white/95 rounded-2xl shadow-xl inline-block border-2 border-amber-400/70">
+            <div id="flyerQrcode" class="flex justify-center p-1"></div>
+          </div>
+          
+          <div class="mt-3">
+            <p class="font-cinzel text-xs font-bold tracking-wider text-amber-300 uppercase">
+              ✨ Scan to Share Your Pictures ✨
+            </p>
+            <p class="text-[11px] text-purple-200 max-w-xs mx-auto mt-0.5">
+              Point your phone camera here to drop all photos you take directly into Olive's private birthday vault!
+            </p>
+          </div>
+        </div>
+
+        <!-- Bottom Footer / RSVP -->
+        <div class="mt-6 pt-2 border-t border-purple-900/80">
+          <p id="dispRsvp" class="font-cinzel tracking-widest text-[11px] text-amber-400/80 uppercase font-semibold">
+            Strictly by Invitation • RSVP: 0801-234-5678
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Live Text Binding
+    const inputs = [
+      { input: 'inputDate', display: 'dispDate' },
+      { input: 'inputTime', display: 'dispTime' },
+      { input: 'inputLocation', display: 'dispLocation' },
+      { input: 'inputAddress', display: 'dispAddress' },
+      { input: 'inputDressCode', display: 'dispDressCode' },
+      { input: 'inputRsvp', display: 'dispRsvp' }
+    ];
+
+    inputs.forEach(({ input, display }) => {
+      const inEl = document.getElementById(input);
+      const dispEl = document.getElementById(display);
+      inEl.addEventListener('input', () => {
+        dispEl.textContent = inEl.value;
+      });
+    });
+
+    // QR Code Generation
+    const qrUrlInput = document.getElementById('qrUrlInput');
+    const flyerQrcode = document.getElementById('flyerQrcode');
+    let qr = null;
+
+    function generateFlyerQR(url) {
+      flyerQrcode.innerHTML = '';
+      qr = new QRCode(flyerQrcode, {
+        text: url.trim(),
+        width: 130,
+        height: 130,
+        colorDark: "#200B3B",
+        colorLight: "#FFFFFF",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    generateFlyerQR(qrUrlInput.value);
+
+    qrUrlInput.addEventListener('input', () => {
+      generateFlyerQR(qrUrlInput.value);
+    });
+
+    // Celebrant Portrait Upload
+    const photoInput = document.getElementById('photoInput');
+    const portraitWrapper = document.getElementById('portraitWrapper');
+    const celebrantImg = document.getElementById('celebrantImg');
+    const photoControls = document.getElementById('photoControls');
+    const removePhotoBtn = document.getElementById('removePhotoBtn');
+
+    photoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          celebrantImg.src = evt.target.result;
+          portraitWrapper.classList.remove('hidden');
+          photoControls.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    removePhotoBtn.addEventListener('click', () => {
+      photoInput.value = '';
+      celebrantImg.src = '';
+      portraitWrapper.classList.add('hidden');
+      photoControls.classList.add('hidden');
+    });
+
+    // High-Res Image Download using HTML2Canvas
+    const downloadImageBtn = document.getElementById('downloadImageBtn');
+    const flyerCard = document.getElementById('flyerCard');
+
+    downloadImageBtn.addEventListener('click', async () => {
+      downloadImageBtn.disabled = true;
+      const originalText = downloadImageBtn.innerHTML;
+      downloadImageBtn.innerHTML = `
+        <svg class="animate-spin h-4 w-4 text-purple-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+        <span>Rendering High-Res Card...</span>
+      `;
+
+      try {
+        const canvas = await html2canvas(flyerCard, {
+          scale: 3, // 3x Ultra-sharp resolution for printing
+          useCORS: true,
+          backgroundColor: '#120524'
+        });
+
+        const image = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = "Olives_30th_Birthday_Invitation_Flyer.png";
+        link.href = image;
+        link.click();
+      } catch (err) {
+        alert("Could not generate image: " + err.message);
+      } finally {
+        downloadImageBtn.disabled = false;
+        downloadImageBtn.innerHTML = originalText;
+      }
+    });
+  </script>
+</body>
+</html>
